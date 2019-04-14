@@ -1,0 +1,40 @@
+.welcomText {
+	font-weight : 200;
+
+}
+
+.topnav{
+	position: absolute;
+	z-index : 1000;
+	box-shadow:0 0px 0px 0 rgba(0,0,0,0);
+
+}
+
+.parallax-container {
+	height : 200px;
+}
+.dropdown-content{
+	background-color: rgba(0,0,0,0.6);
+
+
+}
+
+.breadcrumb{
+	font-size: 1.0rem;
+}
+
+.dropdown-content li>a, .dropdown-content li>span {
+  color:#FFFFFF;
+  }
+
+  @media only screen and (min-width: 992px) {
+  .nav-wrapper {
+   margin: 0 150px 0 150px
+  }
+}
+
+@media only screen and (max-width: 600px){
+#magazine_pagination li a{
+  padding: 0 5px;
+}
+}

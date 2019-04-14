@@ -1,0 +1,149 @@
+
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="UTF-8">
+	<!--Import Google Icon Font-->
+	<link href="https://fonts.googleapis.com/icon?family=Material+Icons"
+	rel="stylesheet">
+	<!--Import materialize.css-->
+	<link type="text/css" rel="stylesheet" href="../css/materialize.min.css"	media="screen,projection" />
+	<link type="text/css" rel="stylesheet" href="../css/modal-loading-animate.css"media="screen,projection" />
+	<link type="text/css" rel="stylesheet" href="../css/modal-loading.css"media="screen,projection" />
+	<link type="text/css" rel="stylesheet" href="../css/pages.css"
+	media="screen,projection" />
+	<!--Let browser know website is optimized for mobile-->
+	<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+</head>
+
+<body>
+	<header id="pagehead"></header>
+
+	<main>
+
+	<div class="parallax-container valign-wrapper">
+		<div class="row">
+			<h1 class="center-align white-text welcomText" style="width: 100%;">DivingHub</h1>
+		</div>
+
+		<div class="parallax">
+			<img src="../images/back001.jpg">
+		</div>
+	</div>
+	<nav class=" light-blue darken-3" style="padding-left: 15px;">
+		<div class="nav-wrapper">
+			<div class="col s12 m12 l12">
+				<a href="#!" class="breadcrumb">User Profile</a>
+			</div>
+		</div>
+	</nav>
+	<div class="section container row">
+		<div class="col s12 m3 l3 grey lighten-4">
+			<div class="row" style="margin-bottom:5px;">
+				<div class="col s12 m12 l12 right-align grey-text" style="margin-top:10px;">
+					<i class="material-icons " id="upload_profile_image">settings</i>
+				</div>
+				<div class="col s12 m12 l12 center-align">
+					<img class="circle user_profile_image" src="../images/user_default.png" style="width:180px; height:180px;">
+				</div>
+			</div>
+			<div class="row" style="margin-bottom:0px;">
+				<div class="col s6 m6 l6 right-align">
+					<h6>Level</h6>
+				</div>
+				<div class="col s6 m6 l6 ">
+					<h6 id="user_level">Loading...</h6>
+				</div>
+			</div>
+			<div class="row" style="margin-bottom:0px;">
+				<div class="col s12 m12 l12">
+					<div class="progress">
+						<div class="determinate" style="width: 70%"></div>
+					</div>
+				</div>
+			</div>
+			<div class="container">
+
+			<div class="row" style="margin-bottom:0px;">
+				<div class="col s6 m6 l6">
+					<h6>게시물</h6>
+				</div>
+				<div class="col s6 m6 l6 ">
+					<h6>좋아요</h6>
+				</div>
+			</div>
+			<div class="row" style="margin-bottom:5px;">
+				<div class="col s6 m6 l6">
+					<h6 class="deep-purple-text text-darken-3" ><b id="writing_count">Loading..</b></h6>
+				</div>
+				<div class="col s6 m6 l6 ">
+					<h6 class="deep-purple-text text-darken-3" ><b id="like_count">Loading..</b></h6>
+				</div>
+			</div>
+		</div>
+	</div>
+
+
+
+				<div class="col s12 m9 l9">
+					<div class="col s12 m8 l8 offset-m1 offset-l1">
+						<h5>사용자 정보</h5>
+					</div>
+					<div class="row">
+						<div class="input-field col s12 m8 l8 offset-m1 offset-l1">
+							<h6>ID</h6>
+							<input disabled value="Loading..." id="user_id" type="text" class="validate">
+						</div>
+						<div class="input-field col s12 m8 l8 offset-m1 offset-l1">
+							<h6>이름</h6>
+							<input disabled value="Loading..." id="user_name" type="text" class="validate">
+						</div>
+
+						<div class="input-field col s12 m8 l8 offset-m1 offset-l1">
+							<h6>생년월일</h6>
+							<input type="text" class="profile_datepicker">
+						</div>
+						<div class="input-field col s12 m8 l8 offset-m1 offset-l1">
+							<h6>비밀번호</h6>
+							<div class="btn pink disabled" id="change_password">비밀번호 변경하기 </div>
+						</div>
+						<div class="input-field col s12 m8 l8 offset-m1 offset-l1">
+							<h6>주소</h6>
+							<input disabled value="Loading..." id="user_address" type="text" class="validate">
+
+						</div>
+						<div class="input-field col s12 m8 l8 offset-m1 offset-l1">
+							<div class="divider"></div>
+						</div>
+						<div class="input-field right-align col s12 m8 l8 offset-m1 offset-l1">
+							<!-- <div class="btn blue center-align"> <i class="material-icons">update</i>업데이트</div> -->
+							<a class="waves-effect waves-light btn blue" id="btn_update"><i class="material-icons right">update</i>업데이트</a>
+
+						</div>
+
+
+
+
+					</div>
+
+
+
+
+				</div>
+
+			</div>
+
+		</main>
+
+		<footer class="page-footer white grey-text" id="pagefooter"> </footer>
+		<script src="https://www.gstatic.com/firebasejs/5.8.0/firebase.js"></script>
+		<!--Import jQuery before materialize.js-->
+		<script type="text/javascript" src="../js/jquery-3.2.1.min.js"></script>
+		<script type="text/javascript" src="../js/firebaseLogin.js"></script>
+		<script type="text/javascript" src="../js/materialize.min.js"></script>
+		<script type="text/javascript" src="../js/modal-loading.js"></script>
+		<script type="text/javascript" src="../js/pages.js"></script>
+		<script type="text/javascript" src="../js/profile.js"></script>
+		<script type="text/javascript" src="../js/swal2.js"></script>
+	</body>
+	</html>

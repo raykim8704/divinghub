@@ -1,0 +1,40 @@
+.welcomeText {
+	font-weight : 700;
+	text-shadow: 2px 4px 5px rgba(0,0,0,.7)
+}
+
+
+
+.topnav{
+	position: absolute;
+	z-index : 1000;
+	box-shadow:0 0px 0px 0 rgba(0,0,0,0);
+
+}
+
+.parallax-container {
+/* 	height : 900px; */
+}
+.dropdown-content{
+	background-color: rgba(0,0,0,0.6);
+
+
+}
+
+  .dropdown-content li>a, .dropdown-content li>span {
+  color:#FFFFFF;
+  }
+
+  @media only screen and (min-width: 992px) {
+  .nav-wrapper {
+   margin: 0 150px 0 150px
+  }
+}
+
+.main_img{
+	width: 100px;
+}
+.promo-caption{
+	font-weight : 700;
+	font-size : 1.5rem;
+}

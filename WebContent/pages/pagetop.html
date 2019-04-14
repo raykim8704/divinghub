@@ -1,0 +1,734 @@
+<nav class="blue lighten-1 topnav">
+	<div id = "recaptcha-container">
+		<div class="nav-wrapper">
+			<a href="#!" class="brand-logo menu-home">DivingHub</a>
+			<a href="#"data-target="mobile-demo" class="sidenav-trigger">
+				<i class="material-icons">menu</i></a>
+				<!--  topMenu for screen  -->
+				<ul class="right hide-on-med-and-down">
+					<li><a class="menu-magazine">MAGAZINE</a></li>
+					<li><a class="menu-epilogue">EPILOGUE</a></li>
+					<!-- Dropdown Trigger -->
+					<li><a class='dropdown-trigger' href='#'
+						data-target='dropdown1'>Magazine <i class="material-icons right">arrow_drop_down</i>
+					</a> <!-- Dropdown Structure -->
+					<ul id='dropdown1' class='dropdown-content'>
+						<li><a class="menu-aboutcebuenjoy">Magazine</a></li>
+						<li><a class="menu-cafe">즐세다 카페</a></li>
+					</ul></li>
+
+					<li><a class='dropdown-trigger' href='#' data-target='dropdown2'>교육 DIVING <i class="material-icons right">arrow_drop_down</i>
+					</a> <!-- Dropdown Structure -->
+					<ul id='dropdown2' class='dropdown-content'>
+						<li><a class="menu-discover">체험 DIVING COURSES</a></li>
+						<li><a class="menu-openwater">OPEN WATER DIVING COURSES</a></li>
+						<li><a class="menu-advanced">ADVANCED DIVING COURSES</a></li>
+						<li><a class="menu-rescue">RESCUE DIVING COURSES</a></li>
+						<li><a class="menu-pro">PRO DIVING COURSES</a></li>
+					</ul></li>
+					<li><a class="menu-fundiving">FUN DIVING</a></li>
+
+					<li>
+						<a class='dropdown-trigger' href='#' data-target='login_dropdown'><i class="material-icons right">person_pin</i></a>
+						<!-- Dropdown Structure -->
+						<ul id='login_dropdown' class='dropdown-content' >
+							<li><a class="menu-login login-dropdown">Login</a></li>
+							<li><a class="menu-register login-dropdown">Register</a></li>
+							<!-- <li><a class="menu-profile modal-trigger logout-dropdown" >Profile</a></li>
+							<li><a class="menu-logout logout-dropdown">Logout</a></li> -->
+						</ul>
+					</li>
+				</ul>
+			</div>
+			<!--  side menu for mobile -->
+			<ul class="sidenav" id="mobile-demo">
+				<li class="indigo lighten-1 valign-wrapper right-align" >
+					<div class="row right-align" style="width:100%;">
+						<div class="col s12 " id="side-logout-container">
+						</div>
+					</li>
+					<li class="indigo lighten-1 valign-wrapper">
+						<div class="row" style="margin-bottom:0px;">
+							<div class="col s12 center-align">
+								<img class=" circle user_profile_image"  width="100" id="side_user_profile" src="../images/user_default.png">
+							</div>
+						</div>
+
+					</li>
+					<li class="indigo lighten-1 valign-wrapper">
+						<div class="row">
+							<div class="col s12 center-align " id="side_login_container">
+								<div class="btn menu-login col s12" style="margin-bottom : 5px;">Login</div>
+								<div class="btn menu-register col s12">신규가입</div>
+
+							</div>
+						</div>
+					</li>
+					<li><a class="menu-magazine">MAGAZINE</a></li>
+					<li><a class="menu-epilogue">EPILOGUE</a></li>
+
+					<li class="no-padding  blue lighten-5">
+						<ul class="collapsible collapsible-accordion">
+
+							<li><a class="collapsible-header">Magazine<i class="material-icons">arrow_drop_down</i></a>
+								<div class="collapsible-body">
+									<ul>
+										<li><a class="menu-aboutcebuenjoy">Magazine</a></li>
+										<li><a class="menu-cafe">즐세다 카페</a></li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li class="no-padding  blue lighten-5">
+						<ul class="collapsible collapsible-accordion">
+							<li><a class="collapsible-header">교육 DIVING<i class="material-icons">arrow_drop_down</i></a>
+								<div class="collapsible-body">
+									<ul>
+										<li><a class="menu-discover">체험 DIVING COURSES</a></li>
+										<li><a class="menu-openwater">OPEN WATER DIVING COURSES</a></li>
+										<li><a class="menu-advanced">ADVANCED DIVING COURSES</a></li>
+										<li><a class="menu-rescue">RESCUE DIVING COURSES</a></li>
+										<li><a class="menu-pro">PRO DIVING COURSES</a></li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</li>
+					<li><a class="menu-fundiving">FUN DIVING</a></li>
+					<li class="no-padding  blue lighten-5">
+						<ul class="collapsible collapsible-accordion">
+							<li><a class="collapsible-header"><i class="material-icons">person_pin</i></a>
+								<div class="collapsible-body">
+									<ul>
+										<li><a class="menu-login">Login</a></li>
+										<li><a class="menu-register">Register</a></li>
+									</ul>
+								</div>
+							</li>
+						</ul>
+					</li>
+				</ul>
+			</nav>
+			<script>
+				// $('#side_user_profile').attr('src',getImagePath('user_default.png'));
+				$('.materialboxed').materialbox();
+				var alreadySet = false;
+				var sesstionUserData = sessionStorage.getItem('userData');
+				if(sesstionUserData && !alreadySet){
+					var userData = JSON.parse(sesstionUserData);
+					sideProfileSetting(userData);
+					alreadySet = true;
+				}
+
+
+				function sideProfileSetting(userinfo){
+					setPageInterface(getCurrentPagePath(),userinfo);
+
+					if(userinfo._sProfileImagePath){
+						_firebaseAuth.getProfileImage(userinfo._sProfileImagePath,'user_profile_image');
+						$('#side_user_profile').attr({ height:'100px'})
+					}
+					$('#login_dropdown').empty();
+					$('#login_dropdown').append('<li><a class="menu-profile logout-dropdown" >'+
+						'<i class="material-icons">person_outline</i>Profile</a></li>'+
+						'<li><a class="menu-logout logout-dropdown"><i class="material-icons">keyboard_tab</i>Logout</a></li>');
+						$('#side-logout-container').empty();
+						$('#side-logout-container').append('<div class="col s12 white-text menu-logout">'+
+							'<span class="badge blue-grey darken-2 white-text" data-badge-caption="logout"><a herf="#"></a></span></div>');
+							$('#side_login_container').empty();
+							$('#side_login_container').append(
+							'<div class="col s6 right-align">Name </div><div class="col s1">|</div><div class="col s5 left-align">'+userinfo._sUsername+'</div>'+
+							'<div class="col s6 right-align">Level </div><div class="col s1">|</div><div class="col s5 left-align">'+userinfo._nLevel+'</div>'+
+							'<div class="btn  light-blue lighten-3 menu-profile">Profile</div>');
+
+							$('.menu-profile').click(function(){
+								console.log(userinfo)
+								pagemove('profile.html')
+							})
+
+							$('.menu-logout').click(function(){
+								$('.sidenav').sidenav('close');
+								Swal.fire({
+									title: '로그아웃 하시겠습니까?',
+									text: "",
+									type: 'info',
+									showCancelButton: true,
+									confirmButtonColor: '#81d4fa',
+									cancelButtonColor: '#ec407a',
+									confirmButtonText: '로그아웃',
+									cancelButtonText : '취소',
+								}).then((result) => {
+									if (result.value) {
+										_firebaseAuth.signOut().then(function(result){
+											gotoHome('index.html')
+											fireswal('정상적으로 로그아웃 되었습니다','','success','OK');
+										}).catch(function(error){
+											console.log(error)
+
+										})
+
+									}
+								})
+							});
+						}
+
+						setLoginMenu();
+
+						function getCurrentPagePath(){
+							var fullPath = $(location).attr("pathname");
+							var arrSplit = fullPath.split('/');
+							var pageName = arrSplit[arrSplit.length-1];
+							return pageName;
+						}
+						function setPageInterface(path,userData){
+							console.log(path);
+							if (path != '/index.html' && path != 'index.html' && path !='/' && path !='') {
+								pageinit.init(userData);
+
+							}
+						}
+
+
+						var _pagetopInterface = {
+
+							setUserLogin : function(userinfo){
+								// alert(JSON.stringify(userinfo));
+
+								if(userinfo){
+										sideProfileSetting(userinfo);
+								}
+							},
+							setUserLogout : function(){
+								$('#login_dropdown').empty();
+								$('#login_dropdown').append('	<li><a class="menu-login login-dropdown">Login</a></li>'+
+								'<li><a class="menu-register login-dropdown">신규가입</a></li>');
+
+								$('#side_login_container').empty();
+								$('#side_login_container').append('<div class="btn  light-blue menu-login col s12" style="margin-bottom : 5px;">Login</div>'+
+								'<div class="btn light-blue accent-2 menu-register col s12">신규가입</div>');
+
+								// $('#side_user_profile').addClass('responsive-img');
+
+								$('#side_user_profile').attr({src : '../images/user_default.png'})
+								setLoginMenu();
+							}
+						}
+
+						function setLoginMenu(){
+							$('.menu-login').click(async function(){
+								$('.sidenav').sidenav('close');
+								swalLogin();
+
+							});
+							$('.menu-register').click(function(){
+								$('.sidenav').sidenav('close');
+								swalRegister();
+							});
+						}
+
+						function fireswal(title,text,type,confirmButtonText,callback){
+							Swal.fire({
+								title: title,
+								text: text,
+								type: type,
+								confirmButtonText: confirmButtonText
+							}).then(callback)
+						}
+
+						$('.sidenav').sidenav();
+						$('.dropdown-trigger').dropdown({
+							hover : true,
+							constrainWidth : false
+						});
+						$('.collapsible').collapsible();
+						// $('.logout-dropdown').hide();
+
+
+						$('.menu-home').click(function() {
+							var pagePath = $(location).attr("pathname");
+							var path
+
+							if (pagePath == '/enjoycebu/index.html') {
+								path = 'index.html'
+							} else {
+								path = '../index.html'
+							}
+							window.location = path;
+						});
+						$('.menu-magazine').click(function(){
+							pagemove('magazine.html',{page:1});
+						});
+
+						$('.menu-epilogue').click(function(){
+							pagemove('epilogue.html',{page:1});
+						})
+
+
+						function validationCheck(userEmail,userPassword){
+							if (userEmail == "") {
+								return { result : false , message : '이메일을 입력해 주세요'} }
+
+								if(userPassword == "" ){
+									return  { result : false , message : '비밀번호를 입력해 주세요'}
+								}
+								var result = validateEmail(userEmail) ?
+								{ result :  true , message : ''} : { result : false , message : '잘못된 이메일 형식 입니다.'};
+
+								return result;
+							}
+
+							function emailDuplicationCheck(email){
+								var isDuplicate;
+								var usersRef = db.collection("users");
+								var query = usersRef.where("email","==",email);
+
+								return new Promise(function(resolve,reject){
+									// query.get().then(function(result){
+									// 	console.log(result)
+									// 	resolve(!result.empty);
+									// }).catch(function(error){
+									// 	reject(error);
+									// });
+									firebase.auth().signInWithEmailAndPassword(email, '0').catch(function(error) {
+										// Handle Errors here.
+										var errorCode = error.code;
+										var errorMessage = error.message;
+										console.log('errorcode',errorCode);
+										console.log('message',errorMessage);
+										if(errorCode == 'auth/wrong-password'){
+											resolve(true)
+										}else{
+											resolve(false)
+										}
+
+									});
+
+								})
+								// return isDuplicate;
+							}
+							function registValidationCheck(registInfo){
+								//userEmail,userPassword,userConfirm
+								console.log(registInfo)
+								if(registInfo.username = ""){
+									return  { result : false , message : '이름을 입력해 주세요'}
+								}
+								if(registInfo.password == "" ){
+									return  { result : false , message : '비밀번호를 입력해 주세요'}
+								}
+								if(registInfo.confirm == "" ){
+									return  { result : false , message : '비밀번호 재확인란을 입력해 주세요'}
+								}
+								if(registInfo.password != registInfo.confirm){
+									return { result : false , message : '비밀번호가 일치하지 않습니다.'}
+								}
+
+								return validationCheck(registInfo.email,registInfo.password)
+
+							}
+
+
+
+
+							function validateEmail(email) {
+								var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+								return re.test(email);
+							}
+
+
+							async function swalLogin(){
+
+								const {value: formValues} = await Swal.fire({
+									// allowEnterKey : false,
+									title: 'Login',
+									html:
+
+									'<div class="left-align">Email</div>'+
+									'<div class="left-align pulse" style="font-size:12px; font-weight:bold;" id="login_email_notice"></div>'+
+									'<input id="login_email" class="swal2-input">' +
+									'<div class="left-align">Password</div>'+
+									'<div class="left-align pulse" style="font-size:12px; font-weight:bold;" id="login_password_notice"></div>'+
+									'<input id="login_password" type="password" class="swal2-input">'+
+									'<div class="btn col s8" id="btn_login" style="margin-bottom : 5px;">로그인</div>'+
+									'<div class="center-align row" style="margin-top:20px;">'+
+										'<div class="col s6 center-align"><a href="#" id="btn_register">신규가입</a></div>'+
+										'<div class="col s6 center-align"><a herf="#" id="btn_find_password">비밀번호 찾기</a></div></div>',
+										focusConfirm: false,
+										showConfirmButton : false,
+										onBeforeOpen:function(){
+											$('#btn_login').click(function(){
+												var userEmail = $('#login_email').val().trim();
+												var userPassword = $('#login_password').val().trim();
+
+												var _oResult = validationCheck(userEmail,userPassword);
+												if(_oResult.result) {
+													_firebaseAuth.loginWithEmail(userEmail,userPassword).then(function(response){
+														console.log(response)
+														if(response.code == 200){
+															console.log(getCurrentPagePath())
+
+															fireswal(response.loginResult.user.email+'님 Login되었습니다.','','success','ok',function(){
+															location.reload();
+															})
+
+														}
+													}).catch(function(error){
+														console.log(error)
+														switch (error.code) {
+															case 10001:
+															showNoticeState('login_password_notice',error.message,'#ec407a');
+															break;
+															case 10002 :
+															showNoticeState('login_email_notice',error.message,'#ec407a');
+															default:
+															showNoticeState('login_email_notice',error.message,'#ec407a');
+
+														}
+													})
+												}
+												else{
+													// fireswal(_oResult.message,'','error','OK',function(){})
+													$('#login_email_notice').text(_oResult.message);
+													// $()
+													showNoticeState('login_email_notice',_oResult.message,'#ec407a');
+
+												}
+
+											});
+											$('#login_email').click(function(){
+												$('#login_email_notice').text('');
+											})
+
+
+											$('#btn_register').click(function(){
+												$('.sidenav').sidenav('close');
+												swalRegister();
+											});
+											$('#btn_find_password').click(function(){
+												swalFindPassword();
+											})
+
+
+										},
+										preConfirm: function() {
+											return [
+											document.getElementById('swal-input1').value,
+											document.getElementById('swal-input2').value
+											]
+										}
+									});
+
+									if (formValues) {
+										var  _oResult = validationCheck(formValues[0],formValues[1]);
+										if(_oResult.result){
+											_firebaseAuth.loginWithEmail(formValues[0],formValues[1]);
+										}else{
+											fireswal(_oResult.message,'','error','OK',swalLogin)
+											// $('#error-message').text(_oResult.message)
+											// swalLogin();
+										}
+									}
+								}
+
+								function showNoticeState(targetId,msg,fontcolor){
+									$('#'+targetId).text(msg);
+									$('#'+targetId).css({color: fontcolor})
+								}
+
+								async function swalFindPassword(){
+									var result = false;
+									const {value: email} = await Swal.fire({
+										title: 'Email 주소를 입력해 주세요',
+										input: 'email',
+										inputPlaceholder: '입력하신 Email로 재설정된 비밀번호를 전송합니다.',
+										preConfirm: (email) => {
+											console.log(email)
+											_firebaseAuth.findPassword(email).then(function(response){
+												if(response.code == 200){result = true}
+											}).catch(function(error){
+												fireswal(error.message,'','error','OK');
+											})
+										}
+									})
+									if(result){
+										fireswal('변경된 비밀번호를 메일로 전송하였습니다.','Email을 확인해 주세요','success','OK');
+									}
+								}
+
+								async function swalRegister(){
+									const {value: formValues} = await Swal.fire({
+										// allowEnterKey : false,
+										title: 'Register',
+										html:
+										'<div class="left-align" style="font-weight:bold;">Email</div>'+
+										'<div class="left-align pulse" style="font-size:12px; font-weight:bold;" id="email_notice"></div>'+
+										'<input id="swal_regist_email" class="swal2-input" style="margin-top:2px;">' +
+										'<div class="left-align" style="font-weight:bold;">닉네임</div>'+
+										'<div class="left-align pulse" style="font-size:12px; font-weight:bold;" id="username_notice"></div>'+
+										'<input type="text" id="swal_regist_name" class="swal2-input" maxlength="20">' +
+										'<div class="left-align" style="font-weight:bold;">생년월일</div>'+
+										'<div class="left-align pulse" style="font-size:12px; font-weight:bold;" id="birthday_notice"></div>'+
+										'<input type="text"  class="datepicker" id="swal_regist_birthday">'+
+										'<div class="left-align" style="font-weight:bold;">패스워드</div>'+
+										'<div class="left-align pulse" style="font-size:12px; font-weight:bold;" id="password_notice"></div>'+
+										'<input id="swal_regist_password" type="password" class="swal2-input">'+
+										'<div class="progress blue lighten-5"><div class="determinate" id="strengthLine" style="width: 0%"></div></div>'+
+										'<ul class="left-align grey-text" style="font-size:0.9em; font-weight:bold;"><li id="wcase">대.소문자 포함</li><li id="number">숫자 포함</li>'+
+											'<li id="char">특수문자 포함</li><li id="length">8자리 이상</li></ul>'+
+											'<div class="left-align" style="font-weight:bold;">패스워드 확인</div>'+
+											'<div class="left-align pulse" style="font-size:12px; font-weight:bold;" id="confirm_notice"></div>'+
+											'<input disabled id="swal_password_confirm"  type="password" class="swal2-input">'+
+											'<div class="btn" id="btn_regist">가입하기</div>',
+											focusConfirm: false,
+											onBeforeOpen:function(){
+
+												var emailDuplication;
+
+												$('.datepicker').datepicker({
+													defaultDate: new Date(1990,01,01),
+													yearRange : 20,
+													format :'yyyy-mm-dd',
+													onClose : function(){
+														if($(swal_regist_birthday).val())
+														{
+															$('#birthday_notice').text('');
+														}
+													}
+												});
+												$('#swal_regist_birthday').attr('readonly',true);
+
+												var emailConfirm = false;
+												$('#swal_regist_email').focusout(function(){
+													console.log('focusout')
+													var email = $('#swal_regist_email').val();
+													if(validateEmail(email)){
+														emailDuplicationCheck(email).then(function(isDuplicate){
+															emailDuplication = isDuplicate;
+															console.log(isDuplicate)
+															if(isDuplicate)	{
+																showNoticeState('email_notice','중복된 이메일 입니다','#ec407a');
+																emailConfirm = false;
+															}
+															else{ showNoticeState('email_notice','사용 가능한 이메일 입니다.','#66bb6a');
+															emailConfirm = true;
+														}
+													})
+												}else {
+													showNoticeState('email_notice','잘못된 이메일 형식 입니다.','#ec407a');
+													emailConfirm = false;
+												}
+											})
+											$('#swal_phone_code').hide();
+											$('#phone_code').hide();
+											var nicknameDuplicate = false;
+											$('#swal_regist_name').focusout(function(){
+												var nickname =  $('#swal_regist_name').val();
+												if(nickname != ""){
+													_firebaseAuth.nicknameDuplicateCheck(nickname).then(function(result){
+														if(result) {
+															showNoticeState('username_notice','중복된 닉네임 입니다.','#ec407a');
+															var nicknameDuplicate = false;
+														}else{
+															var nicknameDuplicate = true;
+															showNoticeState('username_notice','사용 가능한 닉네임 입니다.','#66bb6a');
+														}
+													});
+												}
+											});
+											$('#swal_regist_password').focusout(function(){
+												if($('#swal_regist_password').val()){
+													$('#password_notice').text('');
+												}
+											});
+
+
+											var isEnoughStrength = false;
+
+											$('#swal_regist_password').keyup(function(){
+
+
+												var password = $('#swal_regist_password').val();
+												var strengthCheck = checkStrength(password);
+												var percent  =  strengthCheck.strength*20+'%'
+												var color;
+												switch (strengthCheck.strength) {
+													case 1:
+													color = '#ec407a'
+													$('#swal_password_confirm').attr({'disabled' : true})
+													break;
+													case 2:
+													color = '#ec407a'
+													$('#swal_password_confirm').attr({'disabled' : true})
+													break;
+													case 3 :
+													color = '#ffa726'
+													$('#swal_password_confirm').attr({'disabled' : true})
+													break;
+													case 4 :
+													color = '#29b6f6'
+													$('#swal_password_confirm').attr({'disabled' : true})
+													break;
+													case  5 :
+													isEnoughStrength = true;
+													color = '#66bb6a'
+													$('#swal_password_confirm').attr({'disabled' : false})
+													default:
+												}
+
+												$('#strengthLine').css({
+													width : percent,
+													'background-color' : color
+												});
+
+												strengthCheck.case ? $('#wcase').css({'color':'#66bb6a'}) : $("#wcase").css({'color':'#000000'})
+												strengthCheck.number ? $("#number").css({color:'#66bb6a'}) : $("#number").css({color:'#000000'})
+												strengthCheck.char ? $("#char").css({color:'#66bb6a'}) : $("#char").css({color:'#000000'})
+												strengthCheck.length ? $("#length").css({color:'#66bb6a'}) : $("#length").css({color:'#000000'})
+
+											})
+
+											$('#btn_regist').click(function(){
+												var registInfo = {
+													username : $('#swal_regist_name').val(),
+													email : $('#swal_regist_email').val(),
+													password : $('#swal_regist_password').val(),
+													confirm : $('#swal_password_confirm').val(),
+													birthday :$('#swal_regist_birthday').val(),
+
+												}
+												console.log(registInfo)
+												console.log(emailConfirm);
+
+
+
+												var isEmptyField = false;
+												for( var key in registInfo){
+													if(registInfo[key] == ""){
+														$('#'+key+"_notice").text(key+'을 입력해주세요');
+														$('#'+key+"_notice").css({color:'#ec407a'});
+														isEmptyField = true;
+													}else {
+														$('#'+key+"_notice").text('');
+													}
+												}
+
+												(emailConfirm) ?
+												showNoticeState('email_notice','사용 가능한 이메일 입니다.','#66bb6a')
+												: showNoticeState('email_notice','잘못된 이메일 형식 입니다.','#ec407a')
+
+												(nicknameDuplicate) ?
+												showNoticeState('username_notice','중복된 닉네임 입니다.','#ec407a')
+												: showNoticeState('username_notice','사용 가능한 닉네임 입니다.','#66bb6a')
+
+												var isPasswordEqual = false
+
+												if(!isEmptyField){
+													if(registInfo.password == registInfo.confirm){
+														isPasswordEqual = true;
+													}else{
+														isPasswordEqual = false;
+														$('#password_notice').text('비밀번호가 일치하지 않습니다.')
+														$('#password_notice').css({color:'#ec407a'});
+													}
+
+													if(!isEmptyField && emailConfirm && isPasswordEqual){
+														console.log('login-start')
+														_firebaseAuth.registerWithEamilPassword(registInfo)
+													}
+
+												}
+											});
+										},
+										showConfirmButton : false
+									});
+
+
+								}
+
+
+								function checkStrength(password){
+									var strength = 0;
+									var checkList = {case:false,number:false,char:false,length:false}
+
+									if(password != ''){
+										strength += 1
+									}
+									//If password contains both lower and uppercase characters, increase strength value.
+									if (password.match(/([a-z].*[A-Z])|([A-Z].*[a-z])/)) {
+										strength += 1;
+										checkList.case = true;
+									}
+									//If it has numbers and characters, increase strength value.
+									if (password.match(/([0-9])/)) {
+										strength += 1;
+										checkList.number = true;
+									}
+									//If it has one special character, increase strength value.
+									if (password.match(/([!,%,&,@,#,$,^,*,?,_,~])/)) {
+										strength += 1;
+										checkList.char = true;
+									}
+									//If it longer than 7, increase strength value
+									if (password.length > 7) {
+										strength += 1;
+										checkList.length = true;
+									}
+									checkList.strength = strength;
+
+									return checkList;
+
+
+								}
+
+								function getImagePath(imageName){
+									var pagePath = $(location).attr("pathname");
+
+									var path
+
+									if (pagePath == '/index.html' || pagePath =='/') {
+										path = 'images/' + imageName
+									} else {
+										path = '../images/'+imageName
+									}
+									window.location = path;
+								}
+
+								var gotoHome = function(home){
+									var pagePath = $(location).attr("pathname");
+									var path;
+									if (pagePath == '/index.html' || pagePath =='/') {
+										path = home
+									} else {
+										path = '../'+home
+									}
+
+										window.location.assign(path);
+
+								}
+
+								var pagemove = function(target,_oData) {
+									console.log(_oData)
+									console.log('target :',target)
+									var pagePath = $(location).attr("pathname");
+
+									var path
+
+									if (pagePath == '/index.html' || pagePath =='/') {
+										path = 'pages/' + target
+									} else {
+										path = target
+									}
+									if(_oData != undefined && _oData != ""){
+										path = path +"?userData="+JSON.stringify(_oData);
+									}
+									if(target == 'index.html'){
+										gotoHome(target);
+									}else{
+										window.location.assign(path);
+									}
+								}
+
+
+
+
+							</script>

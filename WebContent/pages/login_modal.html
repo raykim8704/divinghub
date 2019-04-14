@@ -1,0 +1,82 @@
+<!-- Modal Structure -->
+<div id="modal1" class="modal">
+  <div class="container ">
+
+    <div class="row valign-wapper" style="padding-top:30px;">
+      <h2 class="center-align welcomeText light-blue-text" style="width: 100%;">DivingHub</h2>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="user_email" type="text" class="validate">
+        <label for="user_email">Email</label>
+      </div>
+    </div>
+    <div class="row">
+      <div class="input-field col s12">
+        <input id="user_password" type="password" class="validate">
+        <label for="user_password">password</label>
+      </div>
+    </div>
+  </div>
+  <div class="modal-footer center-align" style="text-align : center; height:100%;">
+    <div class="row">
+      <div class="col s12">
+        <a href="#!" id="btn_login" class="modal-close waves-effect waves-green btn-large blue lighten-1" style="width : 50%;">Login</a>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <a href="#!" id="btn_register" >Register</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('#btn_login').click(function(){
+    var userEmail = $('#user_email').val().trim();
+    var userPassword = $('#user_password').val().trim();
+    var _oResult =   validationCheck(userEmail,userPassword);
+    if(_oResult.result)
+    {
+      _firebaseAuth.loginWithEmail(userEmail,userPassword);
+
+    }else{
+      fireswal('Error',_oResult.message,'error','OK')
+    }
+  });
+
+  function validationCheck(userEmail,userPassword){
+    if (userEmail == "") {
+      return { result : false , message : '이메일을 입력해 주세요'} }
+
+    if(userPassword == "" ){
+      return  { result : false , message : '비밀번호를 입력해 주세요'}
+    }
+    var result = validateEmail(userEmail) ?
+    { result :  true , message : ''} : { result : false , message : '잘못된 이메일 형식 입니다.'};
+
+    return result;
+
+
+  }
+
+  function validateEmail(email) {
+    var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+    return re.test(email);
+  }
+
+  function fireswal(title,text,type,confirmButtonText){
+    Swal.fire({
+      title: title,
+      text: text,
+      type: type,
+      confirmButtonText: confirmButtonText
+    }).then(function(result){
+      $('.modal').modal('open');
+    })
+  }
+
+
+</script>
