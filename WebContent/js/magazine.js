@@ -1,4 +1,7 @@
 
+var newURL = window.location.protocol + "//" + window.location.host + "/" + window.location.pathname;
+console.log('newURL :',newURL)
+
 var writingConfig = {
   targetpage : "magazine.html",
   category : "magazines"
@@ -28,15 +31,15 @@ function renderPagination(total,currentPage){
       $('#page_btn_'+currentPage).addClass('active');
       $('.page').click(function(){
         var movePage = $(this).attr('pagenum');
-        pagemove(writingConfig.targetpage,{page:movePage,writingConfig:writingConfig});
+        pagemove(writingConfig.targetpage,movePage);
       })
       $('#before_arrow').click(function(){
         var previousPage = begin-1;
-        pagemove(writingConfig.targetpage,{page:previousPage,writingConfig:writingConfig});
+        pagemove(writingConfig.targetpage,previousPage);
       })
       $('#next_arrow').click(function(){
         var nextPage = end+1;
-        pagemove(writingConfig.targetpage,{page:nextPage,writingConfig:writingConfig});
+        pagemove(writingConfig.targetpage,nextPage);
       });
   })
 }
@@ -79,11 +82,17 @@ var pageinit = {
 
 
 $(document).ready(function(){
+
   // $('#write-magazine').hide()
-  var queryString = decodeURIComponent(window.location.search);
-  var _oData = getDataFromPrevious(queryString);
+  // var queryString = decodeURIComponent(window.location.search);
+  // var _oData = getDataFromPrevious(queryString);
+  var page = $('#context').attr('page')
+  var _oData = {
+    page : page,
+    category : 'magazines'
+  }
   console.log("_oData",_oData);
-  var page = _oData.page;
+  // var page = _oData.page;
 
   var cloudFunctionUrl = (location.protocol == 'https:') ?
   "https://us-central1-koreadivinghub.cloudfunctions.net/getWritingPage"

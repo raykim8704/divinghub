@@ -42,26 +42,25 @@
 			</div>
 			<!--  side menu for mobile -->
 			<ul class="sidenav" id="mobile-demo">
-				<li class="indigo lighten-1 valign-wrapper right-align" >
-					<div class="row right-align" style="width:100%;">
-						<div class="col s12 " id="side-logout-container">
-						</div>
-					</li>
-					<li class="indigo lighten-1 valign-wrapper">
+				<li class="valign-wrapper">
+						<i  class="close-side-menu large material-icons blue-text text-darken-3" style="position:absolute; right:10px;">close</i>
+					<div class="row center-align blue-text" style="margin-bottom:0;">
+						<h5>divingHub</<h5>
+					</div>
+				</li>
+
+					<!-- <li class="indigo lighten-1 valign-wrapper">
 						<div class="row" style="margin-bottom:0px;">
 							<div class="col s12 center-align">
 								<img class=" circle user_profile_image"  width="100" id="side_user_profile" src="../images/user_default.png">
 							</div>
 						</div>
 
-					</li>
-					<li class="indigo lighten-1 valign-wrapper">
-						<div class="row">
+					</li> -->
+					<li class="valign-wrapper">
+						<div class="row " style="width:100%;margin-bottom:0;">
 							<div class="col s12 center-align " id="side_login_container">
-								<div class="btn menu-login col s12" style="margin-bottom : 5px;">Login</div>
-								<div class="btn menu-register col s12">신규가입</div>
-
-							</div>
+						</div>
 						</div>
 					</li>
 					<li><a class="menu-magazine">MAGAZINE</a></li>
@@ -96,18 +95,13 @@
 						</ul>
 					</li>
 					<li><a class="menu-fundiving">FUN DIVING</a></li>
-					<li class="no-padding  blue lighten-5">
-						<ul class="collapsible collapsible-accordion">
-							<li><a class="collapsible-header"><i class="material-icons">person_pin</i></a>
-								<div class="collapsible-body">
-									<ul>
-										<li><a class="menu-login">Login</a></li>
-										<li><a class="menu-register">Register</a></li>
-									</ul>
-								</div>
-							</li>
-						</ul>
-					</li>
+
+					<li class="center-align valign-wrapper center-align" >
+
+							<div class="col " id="side-logout-container" style="width:100%">
+							</div>
+
+						</li>
 				</ul>
 			</nav>
 			<script>
@@ -124,24 +118,41 @@
 
 				function sideProfileSetting(userinfo){
 					setPageInterface(getCurrentPagePath(),userinfo);
+					console.log('sideprofile userinfo : ',userinfo)
 
-					if(userinfo._sProfileImagePath){
-						_firebaseAuth.getProfileImage(userinfo._sProfileImagePath,'user_profile_image');
-						$('#side_user_profile').attr({ height:'100px'})
-					}
 					$('#login_dropdown').empty();
 					$('#login_dropdown').append('<li><a class="menu-profile logout-dropdown" >'+
 						'<i class="material-icons">person_outline</i>Profile</a></li>'+
 						'<li><a class="menu-logout logout-dropdown"><i class="material-icons">keyboard_tab</i>Logout</a></li>');
 						$('#side-logout-container').empty();
-						$('#side-logout-container').append('<div class="col s12 white-text menu-logout">'+
-							'<span class="badge blue-grey darken-2 white-text" data-badge-caption="logout"><a herf="#"></a></span></div>');
+						$('#side-logout-container').append('<div class="btn blue white-text menu-logout" style="width:95%">'+
+							'logout</div>');
 							$('#side_login_container').empty();
+							// $('#side_login_container').append(
+							// '<div class="col s3 right-align">'+
+							// '<img id="side_user_profile"></img></div><div class="col s1">|</div><div class="col s5 left-align">'+userinfo._sUsername+'</div>'+
+							// '<div class="col s6 right-align">Level </div><div class="col s1">|</div><div class="col s5 left-align">'+userinfo._nLevel+'</div>'+
+							// '<div class="btn  light-blue lighten-3 menu-profile">Profile</div>');
 							$('#side_login_container').append(
-							'<div class="col s6 right-align">Name </div><div class="col s1">|</div><div class="col s5 left-align">'+userinfo._sUsername+'</div>'+
-							'<div class="col s6 right-align">Level </div><div class="col s1">|</div><div class="col s5 left-align">'+userinfo._nLevel+'</div>'+
-							'<div class="btn  light-blue lighten-3 menu-profile">Profile</div>');
+							'<div class="row valign-wrapper center-align grey lighten-3" style="margin-top:10px;margin-bottom:10px; padding:10px 0 10px 0;">'+
+							'<div class="col s3  valign-wrapper center-align" style="text-align:center">'+
+							'<img class="circle " id="side_user_profile"></img></div>'+
+							'<div class="col s9 left-align black-text"><div class="col s12 valign-wrapper" style="height:30px;"><b>'+userinfo._sUsername+'</b></div>'+
+							'<div class="col s12 valign-wrapper grey-text text-darken-2" style="height:30px; ">프로필 보기</div></div></div>'
 
+							);
+
+							if(userinfo._sProfileImagePath){
+								_firebaseAuth.getProfileImage(userinfo._sProfileImagePath,'user_profile_image');
+								// $('#side_user_profile').attr({ height:'100px'})
+								$('#side_user_profile').attr('src',userinfo._sProfileImagePath)
+							}else{
+								$('#side_user_profile').attr({
+									src : '../images/user_default.png',
+									height: '42px'
+								})
+							}
+							$('#side_user_profile').attr('height')
 							$('.menu-profile').click(function(){
 								console.log(userinfo)
 								pagemove('profile.html')
@@ -205,8 +216,9 @@
 								'<li><a class="menu-register login-dropdown">신규가입</a></li>');
 
 								$('#side_login_container').empty();
-								$('#side_login_container').append('<div class="btn  light-blue menu-login col s12" style="margin-bottom : 5px;">Login</div>'+
-								'<div class="btn light-blue accent-2 menu-register col s12">신규가입</div>');
+								$('#side_login_container').append(
+								'<div class="btn-flat white blue-text  light-blue menu-login col s12" style="margin-bottom : 5px; width:100%; border: 1px solid #42A5F5">Log in</div>'+
+								'<div class="btn-flat blue white-text menu-register col s12" style="margin-bottom : 5px; width:100%;">가입하기</div>');
 
 								// $('#side_user_profile').addClass('responsive-img');
 
@@ -216,6 +228,10 @@
 						}
 
 						function setLoginMenu(){
+							$('.close-side-menu').click(function() {
+									$('.sidenav').sidenav('close');
+							});
+
 							$('.menu-login').click(async function(){
 								$('.sidenav').sidenav('close');
 								swalLogin();
@@ -257,11 +273,11 @@
 							window.location = path;
 						});
 						$('.menu-magazine').click(function(){
-							pagemove('magazine.html',{page:1});
+							pagemove('magazine.html',1);
 						});
 
 						$('.menu-epilogue').click(function(){
-							pagemove('epilogue.html',{page:1});
+							pagemove('epilogue.html',1);
 						})
 
 
@@ -710,23 +726,45 @@
 									console.log(_oData)
 									console.log('target :',target)
 									var pagePath = $(location).attr("pathname");
-
-									var path
+									console.log(pagePath);
+									var path =target
 
 									if (pagePath == '/index.html' || pagePath =='/') {
 										path = 'pages/' + target
 									} else {
 										path = target
 									}
-									if(_oData != undefined && _oData != ""){
-										path = path +"?userData="+JSON.stringify(_oData);
-									}
+									// if(_oData != undefined && _oData != ""){
+									// 	path = path +"?userData="+JSON.stringify(_oData);
+									// }
 									if(target == 'index.html'){
 										gotoHome(target);
 									}else{
-										window.location.assign(path);
+										// window.location.assign(path);
+										ajaxTest(path,_oData)
 									}
 								}
+
+								function ajaxTest(path,param){
+									console.log('ajax path :',path)
+							       $.ajax({
+							         type : "GET",
+							         url : path,
+							         dataType : "text",
+											 data : param,
+							         error : function() {
+							           alert('통신실패!!');
+							         },
+							         success : function(data) {
+												$('.sidenav').sidenav('close');
+												 $('#context').attr('page',param)
+												 $('#context').html(data);
+
+							         }
+
+							       });
+							     }
+
 
 
 
