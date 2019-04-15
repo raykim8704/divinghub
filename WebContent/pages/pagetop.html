@@ -45,7 +45,7 @@
 				<li class="valign-wrapper">
 						<i  class="close-side-menu large material-icons blue-text text-darken-3" style="position:absolute; right:10px;">close</i>
 					<div class="row center-align blue-text" style="margin-bottom:0;">
-						<h5>divingHub</<h5>
+						<h5>diving<b>Hub</b></<h5>
 					</div>
 				</li>
 
@@ -60,6 +60,8 @@
 					<li class="valign-wrapper">
 						<div class="row " style="width:100%;margin-bottom:0;">
 							<div class="col s12 center-align " id="side_login_container">
+								<div class="btn-flat white blue-text  light-blue menu-login col s12" style="margin-bottom : 5px; width:100%; border: 1px solid #42A5F5">Log in</div>
+								<div class="btn-flat blue white-text menu-register col s12" style="margin-bottom : 5px; width:100%;">가입하기</div>
 						</div>
 						</div>
 					</li>
@@ -234,7 +236,7 @@
 
 							$('.menu-login').click(async function(){
 								$('.sidenav').sidenav('close');
-								swalLogin();
+								loginSwal();
 
 							});
 							$('.menu-register').click(function(){
@@ -343,8 +345,39 @@
 
 							}
 
+							async function loginSwal(){
+								const {value : formValues} = await Swal.fire({
+									title : "",
+									html:
+									'<div class="row">'+
+										'<div class="col s12 blue-text"><h3>diving<b>Hub</b></h3></div>'+
+										'<div class="col s12">'+
+											'<div class="btn white grey-text text-darken-2 " style="width:100%">'+
+												'<img src="../images/googleicon.png" style="vertical-align:middle; height:70%; padding-right:20px;"/>'+
+												'<span>Google계정으로 로그인 하기</span>'+
+											'</div>'
+										+'</div>'
+									+'</div>'
+									+'<div class="row">'
+										+'<div class="col s12"><div class="divider"></div></div>'
+									+'</div>'
+									+'<div class="row">'
+										+'<div class="col s12">'+
+											'<div class="btn blue white-text text-darken-2 valign-wrapper" id="email_login"  style="width:100%">'+
+												' <i class="material-icons" style="vertical-align:middle; padding-right:20px;">email</i>'+
+												'<span>Email로 로그인 하기</span>'+
+											'</div>'
+										+'</div>'
+									+'</div>',
+									 onBeforeOpen:function(){
+										 $('#email_login').click(function() {
+											 swalLogin();
+										 });
+									 }
 
 
+								})
+							}
 
 							function validateEmail(email) {
 								var re = /^(([^<>()[\]\\.,;:\s@\"]+(\.[^<>()[\]\\.,;:\s@\"]+)*)|(\".+\"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
@@ -757,6 +790,7 @@
 							         },
 							         success : function(data) {
 												$('.sidenav').sidenav('close');
+												$('#context').empty()
 												 $('#context').attr('page',param)
 												 $('#context').html(data);
 
